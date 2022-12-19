@@ -95,7 +95,7 @@ List of IP-addresses:   # sudo python vultriever.py <filename>.txt <Nmap argumen
                          
 VULTRIEVER usage in PYTHON CODE:    
 
-                        vultriever.py(<ip_address>,[<Nmap argument>, <Nmap argument>, ..., <Nmap argument>])
+                        vultriever(<ip_address>,[<Nmap argument>, <Nmap argument>, ..., <Nmap argument>])
 
                         ----------------- PYTHON SCRIPT -----------------
                         
