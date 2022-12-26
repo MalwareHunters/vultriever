@@ -163,7 +163,7 @@ class NMap_Collector(object):
             for port_info in ports_info:
 
                 port = re.findall(port_pattern, port_info)[0]
-                port_status = filter(None, port_info.split('\n')[0].split(' '))
+                port_status = list(filter(None, port_info.split('\n')[0].split(' ')))
                 CVEs_info = re.findall(CVE_pattern, port_info)
                 
                 vulnerabilities = []
@@ -251,27 +251,27 @@ def vultriever(ip_address_func=None, nmap_args_func=None):
     
         if ip_address_func or nmap_args_func: msg, ip_addresses, nmap_args = args_check([ip_address_func]+nmap_args_func)
         else: msg, ip_addresses, nmap_args = args_check(sys.argv[1:])
-
+    
         if not msg:
         
             if not ip_address_func and not nmap_args_func: 
             
                 os.system('clear')
-                print logo
+                print(logo)
             
             ### NMAP
             
             nmap_args_string = ''
-
+    
             if nmap_args: 
             
                 for arg in nmap_args:
                     
                     if arg.isdigit(): nmap_args_string += ' '+str(arg)
                     else: nmap_args_string += ' -'+arg
-
+    
             with open('nmap_result.txt', 'w') as log:
-
+    
                 if not ip_address_func and not nmap_args_func: 
                 
                     for ip_address in ip_addresses: 
@@ -281,17 +281,17 @@ def vultriever(ip_address_func=None, nmap_args_func=None):
             
                         try:
     
-                            print '\nUsing command: ' + nmap_command
+                            print('\nUsing command: ' + nmap_command)
                             nmap_process = subprocess.call(nmap_command, shell=True, stdout=log)
-                            print '{0} scanning has finished ...'.format(ip_address)
+                            print('{0} scanning has finished ...'.format(ip_address))
         
                         except Exception as error: 
                             
-                            print error
+                            print(error)
                             return 0                
                 
-                    print 'Write information to file ...\n'
-
+                    print('Write information to file ...\n')
+    
                 else:
             
                     for ip_address in ip_addresses: 
@@ -306,17 +306,17 @@ def vultriever(ip_address_func=None, nmap_args_func=None):
                         except Exception as error: 
                             
                             return json.dumps({'error_message': str(error)})
-
+    
             ### RESPONSE
-
+    
             with open('nmap_result.txt', 'r') as nmap_result:
-
+    
                 if ip_address_func or nmap_args_func:
                 
                     ### JSON
                 
                     try:
-
+    
                         nmap_collector = NMap_Collector(nmap_result.read())
                         return json.dumps(nmap_collector.nmap_info[0])
                         
@@ -371,20 +371,20 @@ def vultriever(ip_address_func=None, nmap_args_func=None):
                                 excel_sheet.cell(row=row_num,column=5,value=nmap_port_info.get("service"))
                                 row_num += 1
                 
-                    print 'Done!'
+                    print('Done!')
                     excel_book.save('Vultriever.xlsx')
             
         else: 
         
             if not ip_address_func and not nmap_args_func: 
-
+    
                 os.system('clear')
-                print logo
-                print msg
+                print(logo)
+                print(msg)
                 
             else: return json.dumps({'error_message':msg})
         
-    except Exception as error: print error
+    except Exception as error: print(error)
 
 if __name__ == '__main__':
 
