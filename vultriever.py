@@ -105,7 +105,7 @@ VULTRIEVER usage in TERMINAL:
         |domain100.com|
         ---------------
 
-        The results of the analysis are stored in a structured form in Excel file
+    The results of the analysis are stored in a structured form in Excel file
 
 VULTRIEVER usage in PYTHON CODE:    
 
